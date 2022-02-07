@@ -12,20 +12,27 @@ const StyledInput = styled.TextInput`
   padding: 5px 10px;
 `;
 
-const Input = ({ placeholder }) => {
+const Input = ({ placeholder, value, onChangeText, onSubmitEditing }) => {
   const width = useWindowDimensions().width;
   return (
     <StyledInput
       width={width}
       placeholder={placeholder}
+      value={value}
       autoCapitalize="none"
       autoCorrect={false}
+      onChangeText={onChangeText}
+      onSubmitEditing={onSubmitEditing}
+      blurOnSubmit={false}
     />
   );
 };
 
 Input.propTypes = {
   placeholder: propTypes.string,
+  value: propTypes.string.isRequired,
+  onChangeText: propTypes.func.isRequired,
+  onSubmitEditing: propTypes.func.isRequired,
 };
 
 export default Input;
