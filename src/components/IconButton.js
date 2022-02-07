@@ -10,9 +10,12 @@ const Icon = styled.Image`
   tint-color: ${({ theme }) => theme.red};
 `;
 
-const IconButton = ({ icon, onPress }) => {
+const IconButton = ({ icon, onPress, id }) => {
+  const _onPress = () => {
+    onPress(id);
+  };
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={_onPress}>
       <View>
         <Icon source={icon}></Icon>
       </View>
@@ -23,6 +26,7 @@ const IconButton = ({ icon, onPress }) => {
 IconButton.propTypes = {
   icon: propTypes.oneOf(Object.values(Icons)).isRequired,
   onPress: propTypes.func.isRequired,
+  id: propTypes.string,
 };
 
 export default IconButton;
