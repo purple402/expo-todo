@@ -22,12 +22,16 @@ const StyledText = styled.Text`
   padding: 0 7px;
 `;
 
-const Task = ({ toggleTask, deleteTask }) => {
+const Task = ({ toggleTask, deleteTask, item }) => {
   return (
     <Container>
-      <IconButton icon={Icons.unchecked} onPress={toggleTask} />
-      <StyledText>Tasks</StyledText>
-      <IconButton icon={Icons.delete} onPress={deleteTask} />
+      <IconButton
+        icon={item.completed ? Icons.checked : Icons.unchecked}
+        onPress={toggleTask}
+        id={item.id}
+      />
+      <StyledText>{item.text}</StyledText>
+      <IconButton icon={Icons.delete} id={item.id} onPress={deleteTask} />
     </Container>
   );
 };
