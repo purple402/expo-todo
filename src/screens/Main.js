@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
-import { Input, Date } from '../components';
+import { Input, DateInfo, Task } from '../components';
 
 const Container = styled.View`
   background: ${({ theme }) => theme.background};
@@ -36,19 +36,85 @@ const Border = styled.View`
   align-items: center;
 `;
 
-export default function Main() {
+const List = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+`;
+
+const Main = () => {
   const { height, width } = useWindowDimensions();
+
+  const testTasks = {
+    1: {
+      id: '1',
+      text: 'react native',
+      completed: false,
+    },
+    2: {
+      id: '2',
+      text: 'expo',
+      completed: true,
+    },
+    3: {
+      id: '3',
+      text: 'app',
+      completed: false,
+    },
+  };
+  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState(testTasks);
+
+  const addNewTask = () => {
+    if (newTask.length < 1) return;
+    const ID = Date.now().toString();
+    const newTaskObject = {
+      [ID]: { id: ID, text: newTask, completed: false },
+    };
+    setNewTask('');
+    setTasks({ ...tasks, ...newTaskObject });
+  };
+
+  const toggleTask = (id) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[id]['completed'] = !currentTasks[id]['completed'];
+    setTasks(currentTasks);
+  };
+
+  const deleteTask = (id) => {
+    const currentTasks = Object.assign({}, tasks);
+    delete currentTasks[id];
+    setTasks(currentTasks);
+  };
+
   return (
     <Container>
       <StatusBar backgroundColor="transparent" translucent hidden />
       <Border height={height} width={width}>
-        <Date />
-        <Input placeholder="... 할 일을 입력해주세요" />
+        <DateInfo />
+        <Input
+          placeholder="... 할 일을 입력해주세요"
+          value={newTask}
+          onChangeText={(text) => setNewTask(text)}
+          onSubmitEditing={addNewTask}
+        />
+        <List>
+          {Object.values(tasks)
+            .reverse()
+            .map((item) => (
+              <Task
+                key={item.id}
+                item={item}
+                toggleTask={toggleTask}
+                deleteTask={deleteTask}
+              />
+            ))}
+        </List>
       </Border>
       <TitleView>
-        <Title>HOTEL the Dreaming</Title>
-        {/* <Title>the Dreaming</Title> */}
+        <Title>HOTEL TODO</Title>
       </TitleView>
     </Container>
   );
-}
+};
+
+export default Main;
