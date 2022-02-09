@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
+import * as Font from 'expo-font';
 
 import { Input, DateInfo, Task } from '../components';
 
@@ -63,6 +64,13 @@ const Main = () => {
   };
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState(testTasks);
+
+  const getFonts = async () => {
+    await Font.loadAsync({
+      Cafe24Dangdanghae: require('../../assets/fonts/Cafe24Dangdanghae.ttf'),
+      VitroPride: require('../../assets/fonts/VitroPride.ttf'),
+    });
+  };
 
   const addNewTask = () => {
     if (newTask.length < 1) return;

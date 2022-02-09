@@ -7,7 +7,10 @@ const Colors = {
   gray: 'gray',
 };
 
-const Fonts = {};
+const Fonts = {
+  title: 'Cafe24Dangdanghae',
+  sub: 'VitroPride',
+};
 
 export const theme = {
   background: Colors.background,
@@ -15,4 +18,8 @@ export const theme = {
   red: Colors.red,
   gray: Colors.gray,
   black: Colors.black,
+
+  // fonts
+  fontMain: Fonts.title,
+  fontSub: Fonts.sub,
 };
