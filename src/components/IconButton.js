@@ -5,19 +5,20 @@ import propTypes from 'prop-types';
 import { Icons } from '../Icons';
 
 const Icon = styled.Image`
-  width: 25px;
-  height: 25px;
-  tint-color: ${({ theme }) => theme.red};
+  width: 24px;
+  height: 24px;
+  tint-color: ${({ theme, completed }) =>
+    completed ? theme.gray : theme.black};
 `;
 
-const IconButton = ({ icon, onPress, id }) => {
+const IconButton = ({ icon, onPress, item }) => {
   const _onPress = () => {
-    onPress(id);
+    onPress(item.id);
   };
   return (
     <TouchableOpacity onPress={_onPress}>
       <View>
-        <Icon source={icon}></Icon>
+        <Icon source={icon} completed={item.completed}></Icon>
       </View>
     </TouchableOpacity>
   );
