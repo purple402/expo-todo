@@ -4,14 +4,14 @@ import styled from 'styled-components/native';
 import { Icons } from '../Icons';
 
 const Container = styled.View`
-  border: 1px solid black;
   width: 100%;
+  margin-bottom: 5px;
 `;
 
 const SubContainer = styled.View`
   width: 100%;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 10px;
 `;
 
@@ -19,23 +19,25 @@ const Title = styled.Text`
   color: ${({ theme }) => theme.main};
   font-weight: 600;
   font-size: 20px;
+  font-family: ${({ theme }) => theme.fontMain};
 `;
 
 const StyledText = styled.Text`
   color: ${({ theme }) => theme.black};
   font-size: 18px;
+  font-family: ${({ theme }) => theme.fontSub};
 `;
 
 const DayContainer = styled.View`
   align-items: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   flex: 1;
 `;
 
 const DayTitle = styled(Title)`
   color: ${({ theme, index }) =>
     index === 0 ? theme.red : index === 6 ? theme.gray : theme.main};
-  font-size: 17px;
+  font-size: 19px;
 `;
 
 const DateInfo = () => {
@@ -47,15 +49,16 @@ const DateInfo = () => {
 
   // 요일 표시
   const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  // const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
   const week = today.getDay();
   const todayCheck = weekdays.map((day, index) => {
     return (
       <DayContainer key={index}>
+        <DayTitle index={index}>{day}</DayTitle>
         <Image
           source={index === week ? Icons.checked : Icons.unchecked}
-          style={{ width: 18, height: 18, marginBottom: 4 }}
+          style={{ width: 18, height: 18, marginTop: 5 }}
         />
-        <DayTitle index={index}>{day}</DayTitle>
       </DayContainer>
     );
   });
@@ -63,7 +66,7 @@ const DateInfo = () => {
   return (
     <Container>
       <SubContainer>
-        <Title style={{ marginRight: 8 }}>Date</Title>
+        <Title style={{ marginRight: 8, marginLeft: 4 }}>Date</Title>
         <StyledText>
           {year}-{month}-{day}
         </StyledText>
