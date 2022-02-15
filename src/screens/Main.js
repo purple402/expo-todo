@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Input, DateInfo, Task } from '../components';
 
@@ -44,6 +45,8 @@ const List = styled.ScrollView`
 
 const Main = () => {
   const { height, width } = useWindowDimensions();
+  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState({});
 
   const testTasks = {
     1: {
@@ -72,6 +75,24 @@ const Main = () => {
     });
   };
 
+  const storeData = async (tasks) => {
+    try {
+      // 'tasks'라는 항목에 tasks 저장
+      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      setTasks(tasks);
+    } catch (e) {}
+  };
+
+  const getData = async () => {
+    try {
+      // 'tasks' 항목에서 저장되어 있는 자료 불러오기
+      const loadedData = await AsyncStorage.getItem('tasks');
+      // 아무것도 없으면 빈 객체 저장
+      setTasks(JSON.parse(loadedData) || {});
+    } catch (e) {}
+  };
+
+  // 새 할일 추가
   const addNewTask = () => {
     if (newTask.length < 1) return;
     const ID = Date.now().toString();
@@ -79,15 +100,17 @@ const Main = () => {
       [ID]: { id: ID, text: newTask, completed: false },
     };
     setNewTask('');
-    setTasks({ ...tasks, ...newTaskObject });
+    storeData({ ...tasks, ...newTaskObject });
   };
 
+  // 할일 완료 toggle
   const toggleTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
     currentTasks[id]['completed'] = !currentTasks[id]['completed'];
     setTasks(currentTasks);
   };
 
+  // 할일 삭제
   const deleteTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
     delete currentTasks[id];
