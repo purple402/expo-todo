@@ -3,6 +3,7 @@ import { StatusBar, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppLoading from 'expo-app-loading';
 
 import { Input, DateInfo, Task } from '../components';
 
@@ -53,6 +54,7 @@ const Main = () => {
   const { height, width } = useWindowDimensions();
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({});
+  const [isReady, setIsReady] = useState(false);
 
   const testTasks = {
     1: {
@@ -70,6 +72,9 @@ const Main = () => {
       text: 'app',
       completed: false,
     },
+  const getReady = async () => {
+    await getFonts();
+    await getData();
   };
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState(testTasks);
@@ -135,6 +140,7 @@ const Main = () => {
     storeData(currentTasks);
   };
 
+  return isReady ? (
     <Container>
       <StatusBar backgroundColor="transparent" translucent hidden />
       <Border height={height} width={width}>
@@ -165,6 +171,12 @@ const Main = () => {
         <Title>HOTEL TODO</Title>
       </TitleView>
     </Container>
+  ) : (
+    <AppLoading
+      startAsync={getReady}
+      onFinish={() => setIsReady(true)}
+      onError={() => {}}
+    />
   );
 };
 
