@@ -8,7 +8,6 @@ import Navigation from './navigation';
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <Main /> */}
       <Navigation />
     </ThemeProvider>
   );
