@@ -17,7 +17,6 @@ const Container = styled.View`
 
 const TitleView = styled.View`
   background: ${({ theme }) => theme.background};
-  /* margin-top: 10px; */
   align-items: center;
 `;
 
@@ -26,15 +25,16 @@ const Title = styled.Text`
   font-size: 25px;
   font-weight: 600;
   margin: 0 10px;
+  font-family: ${({ theme }) => theme.fontMain};
 `;
 
 const Border = styled.View`
-  height: ${({ height }) => height - 60}px;
+  height: ${({ height }) => height - 50}px;
   width: ${({ width }) => width - 30}px;
   border: 2px solid ${({ theme }) => theme.main};
   position: absolute;
   left: 15px;
-  top: 40px;
+  top: 30px;
   padding: 20px 10px 10px 10px;
   align-items: center;
 `;
@@ -42,6 +42,9 @@ const Border = styled.View`
 const List = styled.ScrollView`
   flex: 1;
   width: 100%;
+  margin-top: 8px;
+`;
+
 const ClearButton = styled.TouchableOpacity``;
 const ButtonText = styled.Text`
   font-size: 17px;
@@ -56,28 +59,10 @@ const Main = () => {
   const [tasks, setTasks] = useState({});
   const [isReady, setIsReady] = useState(false);
 
-  const testTasks = {
-    1: {
-      id: '1',
-      text: 'react native',
-      completed: false,
-    },
-    2: {
-      id: '2',
-      text: 'expo',
-      completed: true,
-    },
-    3: {
-      id: '3',
-      text: 'app',
-      completed: false,
-    },
   const getReady = async () => {
     await getFonts();
     await getData();
   };
-  const [newTask, setNewTask] = useState('');
-  const [tasks, setTasks] = useState(testTasks);
 
   const getFonts = async () => {
     await Font.loadAsync({
@@ -128,7 +113,6 @@ const Main = () => {
     setTasks(currentTasks);
   };
 
-  return (
   // 완료된 할일 삭제
   const clearCompleted = () => {
     const currentTasks = Object.assign({}, tasks);
