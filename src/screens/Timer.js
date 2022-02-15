@@ -17,9 +17,14 @@ const Title = styled.Text`
 `;
 
 const PieContainer = styled.TouchableOpacity``;
+const ClockContainer = styled.TouchableOpacity``;
+
 const Timer = () => {
   const theme = useContext(ThemeContext);
   const [progress, setProgress] = useState(0.3);
+  const [minute, setMinute] = useState(progress * 60);
+  const [second, setSecond] = useState(0);
+
   const getAngle = (x, y) => {
     let angle = 0;
     if (x >= 0) {
@@ -37,6 +42,8 @@ const Timer = () => {
 
     const newProgress = getAngle(x, y) / 360;
     setProgress(newProgress);
+    setMinute(Math.floor(newProgress * 60));
+    setSecond(0);
   };
 
   return (
@@ -45,6 +52,11 @@ const Timer = () => {
       <PieContainer onPress={setTime}>
         <Progress.Pie progress={progress} size={300} color={theme.red} />
       </PieContainer>
+      <ClockContainer>
+        <Title>
+          {minute}:{second}
+        </Title>
+      </ClockContainer>
     </Container>
   );
 };
