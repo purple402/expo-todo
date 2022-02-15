@@ -41,6 +41,12 @@ const Border = styled.View`
 const List = styled.ScrollView`
   flex: 1;
   width: 100%;
+const ClearButton = styled.TouchableOpacity``;
+const ButtonText = styled.Text`
+  font-size: 17px;
+  color: ${({ theme }) => theme.red};
+  padding: 5px;
+  font-family: ${({ theme }) => theme.fontMain};
 `;
 
 const Main = () => {
@@ -118,6 +124,17 @@ const Main = () => {
   };
 
   return (
+  // 완료된 할일 삭제
+  const clearCompleted = () => {
+    const currentTasks = Object.assign({}, tasks);
+    for (let key in currentTasks) {
+      if (currentTasks[key]['completed']) {
+        delete currentTasks[key];
+      }
+    }
+    storeData(currentTasks);
+  };
+
     <Container>
       <StatusBar backgroundColor="transparent" translucent hidden />
       <Border height={height} width={width}>
@@ -140,6 +157,9 @@ const Main = () => {
               />
             ))}
         </List>
+        <ClearButton onPress={clearCompleted}>
+          <ButtonText>Clear Completed</ButtonText>
+        </ClearButton>
       </Border>
       <TitleView>
         <Title>HOTEL TODO</Title>
