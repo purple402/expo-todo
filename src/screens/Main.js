@@ -124,6 +124,12 @@ const Main = () => {
     storeData(currentTasks);
   };
 
+  const updateTask = (item) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[item.id] = item;
+    storeData(currentTasks);
+  }
+
   return isReady ? (
     <Container>
       <StatusBar backgroundColor="transparent" translucent hidden />
@@ -144,6 +150,7 @@ const Main = () => {
                 item={item}
                 toggleTask={toggleTask}
                 deleteTask={deleteTask}
+                updateTask={updateTask}
               />
             ))}
         </List>
