@@ -140,6 +140,7 @@ const Main = () => {
           value={newTask}
           onChangeText={(text) => setNewTask(text)}
           onSubmitEditing={addNewTask}
+          onBlur={() => setNewTask("")}
         />
         <List>
           {Object.values(tasks)

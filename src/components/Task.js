@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import propTypes from "prop-types";
 
@@ -50,14 +49,17 @@ const Task = ({ toggleTask, deleteTask, updateTask, item }) => {
   };
 
   return isEditing ? (
-    <Container>
-      <Input
-        placeholder={item.text}
-        value={text}
-        onChangeText={(text) => setText(text)}
-        onSubmitEditing={_onSubmit}
-      />
-    </Container>
+    <Input
+      placeholder={item.text}
+      value={text}
+      onChangeText={(text) => setText(text)}
+      onSubmitEditing={_onSubmit}
+      onBlur={() => {
+        setText(item.text);
+        setIsEditing(false);
+      }}
+      autoFocus={true}
+    />
   ) : (
     <Container>
       <IconButton
