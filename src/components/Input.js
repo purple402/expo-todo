@@ -1,7 +1,7 @@
-import React from 'react';
-import { useWindowDimensions } from 'react-native';
-import styled from 'styled-components/native';
-import propTypes from 'prop-types';
+import React from "react";
+import { useWindowDimensions } from "react-native";
+import styled from "styled-components/native";
+import propTypes from "prop-types";
 
 const StyledInput = styled.TextInput`
   border: 1px solid ${({ theme }) => theme.gray};
@@ -12,7 +12,14 @@ const StyledInput = styled.TextInput`
   padding: 5px 10px;
 `;
 
-const Input = ({ placeholder, value, onChangeText, onSubmitEditing }) => {
+const Input = ({
+  placeholder,
+  value,
+  onChangeText,
+  onSubmitEditing,
+  onBlur,
+  autoFocus,
+}) => {
   const width = useWindowDimensions().width;
   return (
     <StyledInput
@@ -24,8 +31,14 @@ const Input = ({ placeholder, value, onChangeText, onSubmitEditing }) => {
       onChangeText={onChangeText}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
+      onBlur={onBlur}
+      autoFocus={autoFocus}
     />
   );
+};
+
+Input.defaultProps = {
+  autoFocus: false,
 };
 
 Input.propTypes = {
@@ -33,6 +46,8 @@ Input.propTypes = {
   value: propTypes.string.isRequired,
   onChangeText: propTypes.func.isRequired,
   onSubmitEditing: propTypes.func.isRequired,
+  onBlur: propTypes.func.isRequired,
+  autoFocus: propTypes.bool,
 };
 
 export default Input;
