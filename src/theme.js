@@ -18,6 +18,7 @@ export const theme = {
   red: Colors.red,
   gray: Colors.gray,
   black: Colors.black,
+  white: Colors.white,
 
   // fonts
   fontMain: Fonts.title,
