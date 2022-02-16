@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar, useWindowDimensions } from 'react-native';
-import styled from 'styled-components/native';
-import * as Font from 'expo-font';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppLoading from 'expo-app-loading';
+import React, { useState, useEffect } from "react";
+import { StatusBar, useWindowDimensions } from "react-native";
+import styled from "styled-components/native";
+import * as Font from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppLoading from "expo-app-loading";
 
-import { Input, DateInfo, Task } from '../components';
+import { Input, DateInfo, Task } from "../components";
 
 const Container = styled.View`
   background: ${({ theme }) => theme.background};
@@ -55,7 +55,7 @@ const ButtonText = styled.Text`
 
 const Main = () => {
   const { height, width } = useWindowDimensions();
-  const [newTask, setNewTask] = useState('');
+  const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState({});
   const [isReady, setIsReady] = useState(false);
 
@@ -66,15 +66,15 @@ const Main = () => {
 
   const getFonts = async () => {
     await Font.loadAsync({
-      Cafe24Dangdanghae: require('../../assets/fonts/Cafe24Dangdanghae.ttf'),
-      VitroPride: require('../../assets/fonts/VitroPride.ttf'),
+      Cafe24Dangdanghae: require("../../assets/fonts/Cafe24Dangdanghae.ttf"),
+      VitroPride: require("../../assets/fonts/VitroPride.ttf"),
     });
   };
 
   const storeData = async (tasks) => {
     try {
       // 'tasks'라는 항목에 tasks 저장
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      await AsyncStorage.setItem("tasks", JSON.stringify(tasks));
       setTasks(tasks);
     } catch (e) {}
   };
@@ -82,7 +82,7 @@ const Main = () => {
   const getData = async () => {
     try {
       // 'tasks' 항목에서 저장되어 있는 자료 불러오기
-      const loadedData = await AsyncStorage.getItem('tasks');
+      const loadedData = await AsyncStorage.getItem("tasks");
       // 아무것도 없으면 빈 객체 저장
       setTasks(JSON.parse(loadedData) || {});
     } catch (e) {}
@@ -95,14 +95,14 @@ const Main = () => {
     const newTaskObject = {
       [ID]: { id: ID, text: newTask, completed: false },
     };
-    setNewTask('');
+    setNewTask("");
     storeData({ ...tasks, ...newTaskObject });
   };
 
   // 할일 완료 toggle
   const toggleTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
-    currentTasks[id]['completed'] = !currentTasks[id]['completed'];
+    currentTasks[id]["completed"] = !currentTasks[id]["completed"];
     setTasks(currentTasks);
   };
 
@@ -117,7 +117,7 @@ const Main = () => {
   const clearCompleted = () => {
     const currentTasks = Object.assign({}, tasks);
     for (let key in currentTasks) {
-      if (currentTasks[key]['completed']) {
+      if (currentTasks[key]["completed"]) {
         delete currentTasks[key];
       }
     }
@@ -128,7 +128,7 @@ const Main = () => {
     const currentTasks = Object.assign({}, tasks);
     currentTasks[item.id] = item;
     storeData(currentTasks);
-  }
+  };
 
   return isReady ? (
     <Container>
