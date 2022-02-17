@@ -10,11 +10,11 @@ const StackNav = () => {
   const theme = useContext(ThemeContext);
 
   return (
-    <Stack.Navigator initialRouteName="Timer">
+    <Stack.Navigator initialRouteName="Main">
       {/* Stack.Navigatior 안에 Screen이 있어야한다 */}
       {/* 필수 props는 name, component */}
       <Stack.Screen
-        name="Home"
+        name="Main"
         component={Main}
         options={{ headerShown: false }}
       />
@@ -29,6 +29,7 @@ const StackNav = () => {
             headerShadowVisible: false,
             headerTintColor: theme.main,
             headerBackTitleVisible: false,
+            // statusBarHidden: true,
           }}
       />
     </Stack.Navigator>
