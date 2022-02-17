@@ -5,6 +5,8 @@ const Colors = {
   main: 'rgb(51, 65, 159)',
   red: 'crimson',
   gray: 'gray',
+  paleWhite: 'rgba(255, 255, 255, 0.5)',
+  transparent: 'rgba(255, 255, 255, 0)'
 };
 
 const Fonts = {
@@ -19,6 +21,8 @@ export const theme = {
   gray: Colors.gray,
   black: Colors.black,
   white: Colors.white,
+  paleWhite: Colors.paleWhite,
+  transparent: Colors.transparent,
 
   // fonts
   fontMain: Fonts.title,
