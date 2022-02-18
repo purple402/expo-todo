@@ -18,6 +18,14 @@ const Title = styled.Text`
 
 const PieContainer = styled.TouchableOpacity``;
 const ClockContainer = styled.TouchableOpacity``;
+const ClockContainer = styled.View``;
+
+const ClockNumber = styled.Text`
+  color: ${({ theme }) => theme.main};
+  font-size: 50px;
+  margin: 30px 0;
+  font-family: ${({ theme }) => theme.fontSub};
+`;
 
 const Timer = () => {
   const theme = useContext(ThemeContext);
@@ -53,9 +61,11 @@ const Timer = () => {
         <Progress.Pie progress={progress} size={300} color={theme.red} />
       </PieContainer>
       <ClockContainer>
-        <Title>
-          {minute}:{second}
-        </Title>
+        <ClockNumber>
+          {time < 0 && "+"}
+          {minute < 10 ? "0" + minute : minute}:
+          {second < 10 ? "0" + second : second}
+        </ClockNumber>
       </ClockContainer>
     </Container>
   );
