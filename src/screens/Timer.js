@@ -18,6 +18,7 @@ const Title = styled.Text`
 
 const PieContainer = styled.TouchableOpacity``;
 const ClockContainer = styled.TouchableOpacity``;
+const PieContainer = styled.View``;
 const ClockContainer = styled.View``;
 
 const ClockNumber = styled.Text`
@@ -32,6 +33,7 @@ const Timer = () => {
   const [progress, setProgress] = useState(0.3);
   const [minute, setMinute] = useState(progress * 60);
   const [second, setSecond] = useState(0);
+  const [usePie, setUsePie] = useState(false); // Pie사용 여부
 
   const getAngle = (x, y) => {
     let angle = 0;
@@ -56,10 +58,12 @@ const Timer = () => {
 
   return (
     <Container>
-      <Title>Timer Page</Title>
-      <PieContainer onPress={setTime}>
-        <Progress.Pie progress={progress} size={300} color={theme.red} />
-      </PieContainer>
+      <Title>{text}</Title>
+      {usePie ? (
+        <PieContainer>
+          <Progress.Pie progress={progress} size={340} color={theme.red} />
+        </PieContainer>
+      ) : (
       <ClockContainer>
         <ClockNumber>
           {time < 0 && "+"}
