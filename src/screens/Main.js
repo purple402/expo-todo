@@ -187,8 +187,8 @@ const Main = () => {
           <ButtonText>Clear Completed</ButtonText>
         </ClearButton>
       </Border>
-        <Title>HOTEL TODO</Title>
       <TitleView platform={Platform.OS}>
+        <Title>ROOM NO.411</Title>
       </TitleView>
     </Container>
   ) : (
