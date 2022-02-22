@@ -59,6 +59,16 @@ const Main = () => {
   const [tasks, setTasks] = useState({});
   const [isReady, setIsReady] = useState(false);
 
+  // useEffect(() => {
+  //   if(route.params?.completed) {
+  //     const currentTasks = Object.assign({}, tasks);
+  //     const id = route.params.id;
+  //     currentTasks[id]["completed"] = true;
+  //     storeData(currentTasks);
+  //     route.params.completed = false;
+  //   }
+  // }, [route])
+
   const getReady = async () => {
     await getFonts();
     await getData();
@@ -102,8 +112,21 @@ const Main = () => {
   // 할일 완료 toggle
   const toggleTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
-    currentTasks[id]["completed"] = !currentTasks[id]["completed"];
-    setTasks(currentTasks);
+    const item = currentTasks[id];
+    // check -> uncheck
+    if (currentTasks[id]["completed"]) {
+      currentTasks[id]["completed"] = false;
+      storeData(currentTasks);
+    } else {
+      // uncheck -> check
+      const currentTasks = Object.assign({}, tasks);
+      currentTasks[id]["completed"] = !currentTasks[id]["completed"];
+      setTasks(currentTasks);
+    }
+    // navigation.navigate("Timer", {
+    //   id: id,
+    //   text: item["text"],
+    // })
   };
 
   // 할일 삭제
