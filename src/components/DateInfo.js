@@ -5,7 +5,7 @@ import { Icons } from '../Icons';
 
 const Container = styled.View`
   width: 100%;
-  margin-bottom: 5px;
+  margin: 5px 0;
 `;
 
 const SubContainer = styled.View`

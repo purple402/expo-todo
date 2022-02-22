@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { StatusBar, useWindowDimensions } from "react-native";
-import styled from "styled-components/native";
+import styled, { ThemeContext } from "styled-components/native";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 
 import { Input, DateInfo, Task, ProgressBar } from "../components";
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   background: ${({ theme }) => theme.background};
   flex: 1;
   align-items: center;
@@ -18,6 +18,7 @@ const Container = styled.View`
 const TitleView = styled.View`
   background: ${({ theme }) => theme.background};
   align-items: center;
+  margin-top: ${({ platform }) => (platform === "ios" ? 18 : 25)}px;
 `;
 
 const Title = styled.Text`
@@ -28,13 +29,18 @@ const Title = styled.Text`
   font-family: ${({ theme }) => theme.fontMain};
 `;
 
+const StyledText = styled.Text`
+  font-family: ${({ theme }) => theme.fontSub};
+  font-size: 15px;
+`;
+
 const Border = styled.View`
   height: ${({ height }) => height - 50}px;
   width: ${({ width }) => width - 30}px;
   border: 2px solid ${({ theme }) => theme.main};
   position: absolute;
   left: 15px;
-  top: 30px;
+  top: ${({ platform }) => (platform === "ios" ? 30 : 60)}px;
   padding: 20px 10px 10px 10px;
   align-items: center;
 `;
@@ -53,6 +59,7 @@ const ButtonText = styled.Text`
 `;
 
 const Main = () => {
+  const theme = useContext(ThemeContext);
   const { height, width } = useWindowDimensions();
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState(initialTasks);
@@ -147,8 +154,13 @@ const Main = () => {
 
   return isReady ? (
     <Container>
-      <StatusBar backgroundColor="transparent" translucent hidden />
-      <Border height={height} width={width}>
+      <StatusBar
+        backgroundColor={"transparent"}
+        translucent={true}
+        hidden={Platform.OS == "ios" ? true : false}
+      />
+      <Border height={height} width={width} platform={Platform.OS}>
+        {/* <StyledText>당신이 있는 곳 어디든 작업실이 될 수 있습니다.</StyledText> */}
         <DateInfo />
         <Input
           placeholder="... 할 일을 입력해주세요"
@@ -157,7 +169,7 @@ const Main = () => {
           onSubmitEditing={addNewTask}
           onBlur={() => setNewTask("")}
         />
-        <ProgressBar tasks={tasks}/>
+        <ProgressBar tasks={tasks} />
         <List>
           {Object.values(tasks)
             .reverse()
@@ -175,8 +187,8 @@ const Main = () => {
           <ButtonText>Clear Completed</ButtonText>
         </ClearButton>
       </Border>
-      <TitleView>
         <Title>HOTEL TODO</Title>
+      <TitleView platform={Platform.OS}>
       </TitleView>
     </Container>
   ) : (
