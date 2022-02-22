@@ -5,7 +5,7 @@ import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 
-import { Input, DateInfo, Task } from "../components";
+import { Input, DateInfo, Task, ProgressBar } from "../components";
 
 const Container = styled.View`
   background: ${({ theme }) => theme.background};
@@ -42,7 +42,6 @@ const Border = styled.View`
 const List = styled.ScrollView`
   flex: 1;
   width: 100%;
-  margin-top: 8px;
 `;
 
 const ClearButton = styled.TouchableOpacity``;
@@ -172,6 +171,7 @@ const Main = () => {
           onSubmitEditing={addNewTask}
           onBlur={() => setNewTask("")}
         />
+        <ProgressBar tasks={tasks}/>
         <List>
           {Object.values(tasks)
             .reverse()
