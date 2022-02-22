@@ -40,6 +40,22 @@ const TimerButton = styled.TouchableOpacity`
   left: ${({ left }) => left}px;
 `;
 
+const TimerLineContainer = styled.View`
+  height: 324px;
+  width: 3px;
+  position: absolute;
+  top: 60px;
+  left: 170px;
+`;
+
+const TimerLine = styled.View`
+  height: 70px;
+  width: 3px;
+  background-color: ${({ theme }) => theme.main};
+  position: absolute;
+  top: 0
+`;
+
 const StartButton = styled(TimerButton)`
   width: 84px;
   height: 84px;
@@ -61,6 +77,24 @@ const ClockNumber = styled.Text`
   font-size: 50px;
   margin: 30px 0;
   font-family: ${({ theme }) => theme.fontSub};
+`;
+
+const ControlButtonContainer = styled.View`
+  flex-direction: row;
+`;
+
+const ControlButton = styled.TouchableOpacity`
+  /* border: 1px solid ${({ theme }) => theme.main}; */
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 15px;
+  background-color: ${({ theme }) => theme.main};
+`;
+
+const ControlText = styled.Text`
+  font-size: 23px;
+  font-family: ${({ theme }) => theme.fontSub};
+  color: white;
 `;
 
 const Timer = ({ navigation, route }) => {
@@ -138,6 +172,55 @@ const Timer = ({ navigation, route }) => {
     i = i + 1;
   }
 
+  const handleCancelBtn = () => {
+    Alert.alert(null, "하던 일을 취소하고 이전으로 돌아갈까요?", [
+      {
+        text: "계속하기",
+        onPress: () => {},
+      },
+      {
+        text: "돌아가기",
+        onPress: () => navigation.navigate("Main"),
+      },
+    ]);
+  };
+
+  const handleCompleteBtn = () => {
+    if (!usePie) {
+      Alert.alert(
+        null,
+        `${text}을(를) 아직 시작하지 않았습니다. ${text}을(를) 완료로 처리할까요?`,
+        [
+          {
+            text: "수행하기",
+            onPress: () => {},
+          },
+          {
+            text: "완료하기",
+            onPress: () =>
+              navigation.navigate("Main", { id: id, completed: true }),
+          },
+        ]
+      );
+    } else if (time < 0) {
+      navigation.navigate("Main", { id: id, completed: true });
+    } else {
+      Alert.alert(
+        null,
+        `타이머가 아직 실행중입니다. ${text}을(를) 모두 마치셨나요?`,
+        [
+          {
+            text: "계속하기",
+            onPress: () => {},
+          },
+          {
+            text: "완료하기",
+            onPress: () =>
+              navigation.navigate("Main", { id: id, completed: true }),
+          },
+        ]
+      );
+    }
   };
 
   return (
@@ -150,7 +233,17 @@ const Timer = ({ navigation, route }) => {
       ) : (
         <View>
           <TimerButtonContainer>
+          <TimerLineContainer
+            style={{ transform: [{ rotate: `${time / 10}deg` }] }}
+          >
+            <TimerLine />
+          </TimerLineContainer>
             {timerButtons}
+            {/* <TimerLine
+              style={{
+                transform: [{ rotate: `${time / 10}deg` }],
+              }}
+            /> */}
             <StartButton
               top={128}
               left={128}
@@ -171,6 +264,24 @@ const Timer = ({ navigation, route }) => {
           {second < 10 ? "0" + second : second}
         </ClockNumber>
       </ClockContainer>
+      <ControlButtonContainer>
+        <ControlButton onPress={handleCancelBtn}>
+          <ControlText>취소</ControlText>
+        </ControlButton>
+        <ControlButton
+          onPress={() => {
+            setIsCounting(!isCounting);
+            setUsePie(true);
+          }}
+        >
+          <ControlText>
+            {isCounting ? "일시정지" : usePie ? "다시시작" : "시작"}
+          </ControlText>
+        </ControlButton>
+        <ControlButton onPress={handleCompleteBtn}>
+          <ControlText>완료</ControlText>
+        </ControlButton>
+      </ControlButtonContainer>
     </Container>
   );
 };
