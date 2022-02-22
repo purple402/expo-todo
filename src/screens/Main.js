@@ -65,16 +65,6 @@ const Main = () => {
     [104]: { id: 104, text: "완료는 왼쪽 동그라미", completed: false },
   };
 
-  // useEffect(() => {
-  //   if(route.params?.completed) {
-  //     const currentTasks = Object.assign({}, tasks);
-  //     const id = route.params.id;
-  //     currentTasks[id]["completed"] = true;
-  //     storeData(currentTasks);
-  //     route.params.completed = false;
-  //   }
-  // }, [route])
-
   const getReady = async () => {
     await getFonts();
     await getData();
@@ -129,10 +119,6 @@ const Main = () => {
       currentTasks[id]["completed"] = !currentTasks[id]["completed"];
       setTasks(currentTasks);
     }
-    // navigation.navigate("Timer", {
-    //   id: id,
-    //   text: item["text"],
-    // })
   };
 
   // 할일 삭제

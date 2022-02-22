@@ -20,9 +20,6 @@ export const theme = {
   red: Colors.red,
   gray: Colors.gray,
   black: Colors.black,
-  white: Colors.white,
-  paleWhite: Colors.paleWhite,
-  transparent: Colors.transparent,
 
   // fonts
   fontMain: Fonts.title,
