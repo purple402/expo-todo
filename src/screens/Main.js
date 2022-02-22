@@ -56,8 +56,15 @@ const ButtonText = styled.Text`
 const Main = () => {
   const { height, width } = useWindowDimensions();
   const [newTask, setNewTask] = useState("");
-  const [tasks, setTasks] = useState({});
+  const [tasks, setTasks] = useState(initialTasks);
   const [isReady, setIsReady] = useState(false);
+
+  const initialTasks = {
+    [101]: { id: 101, text: "을  눌러주세요", completed: false },
+    [102]: { id: 102, text: "삭제는 휴지통", completed: false },
+    [103]: { id: 103, text: "수정은 글씨", completed: false },
+    [104]: { id: 104, text: "완료는 왼쪽 동그라미", completed: false },
+  };
 
   // useEffect(() => {
   //   if(route.params?.completed) {
