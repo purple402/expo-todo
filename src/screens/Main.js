@@ -160,7 +160,6 @@ const Main = () => {
         hidden={Platform.OS == "ios" ? true : false}
       />
       <Border height={height} width={width} platform={Platform.OS}>
-        {/* <StyledText>당신이 있는 곳 어디든 작업실이 될 수 있습니다.</StyledText> */}
         <DateInfo />
         <Input
           placeholder="... 할 일을 입력해주세요"

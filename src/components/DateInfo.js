@@ -11,7 +11,6 @@ const Container = styled.View`
 const SubContainer = styled.View`
   width: 100%;
   flex-direction: row;
-  align-items: flex-end;
   margin-bottom: 10px;
 `;
 
