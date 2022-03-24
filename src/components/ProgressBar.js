@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled, { ThemeContext } from "styled-components/native";
 import * as Progress from "react-native-progress";
+import propTypes from "prop-types";
 
 const Container = styled.View`
   width: 100%;
@@ -27,13 +28,11 @@ const ProgressBar = ({ tasks }) => {
   // 완료 비율 구하기
   const tasksValue = Object.values(tasks);
   const total = tasksValue.length;
-  const completed = tasksValue.filter(
-    (task) => task.completed === true
-  ).length;
+  const completed = tasksValue.filter((task) => task.completed === true).length;
 
   let progress = 0;
   if (total !== 0) {
-      progress = completed / total
+    progress = completed / total;
   }
 
   return (
@@ -46,9 +45,15 @@ const ProgressBar = ({ tasks }) => {
           color={theme.main}
         />
       </BarContainer>
-      <BarText>{completed}/{total}</BarText>
+      <BarText>
+        {completed}/{total}
+      </BarText>
     </Container>
   );
+};
+
+ProgressBar.propTypes = {
+  tasks: propTypes.object.isRequired,
 };
 
 export default ProgressBar;
