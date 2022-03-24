@@ -12,3 +12,7 @@ web-build/
 
 # macOS
 .DS_Store
+assets/original/adaptive-icon.png
+assets/original/favicon.png
+assets/original/icon.png
+assets/original/splash.png
