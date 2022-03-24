@@ -10,6 +10,7 @@ const StyledInput = styled.TextInput`
   height: 40px;
   font-size: 18px;
   padding: 5px 10px;
+  font-family: ${({ theme }) => theme.fontSub};
 `;
 
 const Input = ({
