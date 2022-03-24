@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "expo-todo",
-    "slug": "expo-todo",
+    "name": "RoomNo411",
+    "slug": "RoomNo411",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#b0aba6"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,8 +22,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#ffe8bf"
+      },
+      "package": "com.joy.lee.RoomNo411"
     },
     "web": {
       "favicon": "./assets/favicon.png"
