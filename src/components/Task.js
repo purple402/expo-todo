@@ -23,11 +23,12 @@ const StyledText = styled.Text`
 
 const Line = styled.View`
   position: absolute;
-  width: 91%;
+  width: 82%;
   height: 2px;
   top: 15px;
   left: 35px;
   background-color: ${({ theme }) => theme.red};
+  border-radius: 1px;
 `;
 
 const ContentView = styled.TouchableOpacity`

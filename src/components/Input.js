@@ -11,6 +11,7 @@ const StyledInput = styled.TextInput`
   font-size: 18px;
   padding: 5px 10px;
   font-family: ${({ theme }) => theme.fontSub};
+  margin-top: 7px;
 `;
 
 const Input = ({
